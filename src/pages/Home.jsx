@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import { Hero, Features, PricingCards, CTASection, Testimonials } from '../components';
 
 // This is a simple placeholder component that redirects to the app router home page
 export default function Home() {
@@ -10,6 +11,8 @@ export default function Home() {
     router.replace('/');
   }, [router]);
 
+  // Return a simple loading screen
+  // The actual components are just empty placeholders to satisfy the build
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <div className="text-center">
