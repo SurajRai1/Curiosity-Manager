@@ -1,8 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Hero, Features, PricingCards, CTASection, Testimonials } from '../components';
 
-// This is a simple placeholder component that redirects to the app router home page
+// Simple redirect component with no external dependencies
 export default function Home() {
   const router = useRouter();
   
@@ -11,13 +10,29 @@ export default function Home() {
     router.replace('/');
   }, [router]);
 
-  // Return a simple loading screen
-  // The actual components are just empty placeholders to satisfy the build
+  // Simple loading screen with no component dependencies
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-900">Redirecting...</h1>
-        <p className="mt-2 text-gray-600">Please wait while we redirect you to the homepage.</p>
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      minHeight: '100vh',
+      backgroundColor: '#f9fafb'
+    }}>
+      <div style={{ textAlign: 'center' }}>
+        <h1 style={{ 
+          fontSize: '1.5rem', 
+          fontWeight: 'bold',
+          color: '#111827'
+        }}>
+          Redirecting...
+        </h1>
+        <p style={{ 
+          marginTop: '0.5rem',
+          color: '#4b5563'
+        }}>
+          Please wait while we redirect you to the homepage.
+        </p>
       </div>
     </div>
   );
