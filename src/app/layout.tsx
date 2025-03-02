@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   keywords: ["ADHD", "productivity", "task management", "neurodivergent", "time management"],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
