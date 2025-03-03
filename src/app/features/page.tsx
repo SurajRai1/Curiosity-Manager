@@ -7,399 +7,32 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Brain, Sparkles, Timer, Zap, Target, Heart, Lightbulb, CheckCircle, Plus, Minus, ArrowUpRight } from 'lucide-react';
 import ScrollReveal from '@/components/homepage/ScrollReveal';
 
-export default function FeaturesPage() {
-  const [activeFeature, setActiveFeature] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  // Parallax effect for hero section
-  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-
-  // Auto-rotate features every 5 seconds if not hovering
-  useEffect(() => {
-    if (isHovering) return;
-    
-    const interval = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % features.length);
-    }, 5000);
-    
-    return () => clearInterval(interval);
-  }, [isHovering]);
-
-  return (
-    <div className="relative min-h-screen bg-[#FAFAFA]" ref={containerRef}>
-      {/* Hero Section with Parallax */}
-      <div className="relative h-[70vh] overflow-hidden flex items-center justify-center">
-        <motion.div 
-          className="absolute inset-0 z-0"
-          style={{ y, opacity }}
-        >
-          <div className="absolute inset-0 bg-gradient-conic from-primary-100/40 via-secondary-50/40 to-primary-50/40 opacity-40 blur-3xl" />
-          <div className="absolute left-1/4 top-1/4 w-64 h-64 rounded-full bg-gradient-to-r from-blue-200/30 to-primary-200/30 blur-xl" />
-          <div className="absolute right-1/4 bottom-1/4 w-72 h-72 rounded-full bg-gradient-to-r from-orange-200/30 to-yellow-200/30 blur-xl" />
-        </motion.div>
-        
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-flex items-center px-3 py-1 space-x-2 bg-white rounded-full shadow-md mb-6">
-              <span className="px-2 py-0.5 text-xs font-semibold text-white rounded-full bg-gradient-to-r from-primary-500 to-secondary-500">
-                FEATURES
-              </span>
-              <span className="text-sm font-medium text-neutral-600">
-                Designed for neurodivergent minds
-              </span>
-              <Sparkles className="w-4 h-4 text-secondary-500 animate-pulse" />
-            </div>
-            
-            <h1 className="text-5xl font-bold tracking-tight text-neutral-900 mb-6">
-              <span className="inline-block bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-600 bg-clip-text text-transparent">
-                Tools That Work With Your Brain
-              </span>
-            </h1>
-            
-            <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-              We've designed every feature to complement neurodivergent thinking patterns, not fight against them. Discover how Curiosity Manager adapts to your unique mind.
-            </p>
-          </motion.div>
-        </div>
-        
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FAFAFA] to-transparent" />
-      </div>
-
-      {/* Interactive Feature Showcase */}
-      <div className="py-24 px-6 max-w-7xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 mb-4 rounded-full bg-primary-50 text-primary-600">
-              <Lightbulb className="w-4 h-4" />
-              <span className="text-sm font-medium">Explore Our Features</span>
-            </div>
-            <h2 className="text-4xl font-bold text-neutral-900 mb-4">
-              Designed for <span className="text-primary-600">Your Unique Mind</span>
-            </h2>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-              Click on any feature to see it in action, or simply watch as we showcase each one.
-            </p>
-          </div>
-        </ScrollReveal>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
-          <div className="lg:col-span-1 space-y-4">
-            {features.map((feature, idx) => (
-              <ScrollReveal key={feature.title} delay={idx * 100}>
-                <motion.div
-                  className={`p-6 rounded-xl cursor-pointer transition-all duration-300 ${
-                    activeFeature === idx 
-                      ? 'bg-white shadow-lg scale-105' 
-                      : 'bg-neutral-50 hover:bg-white hover:shadow-md'
-                  }`}
-                  onClick={() => setActiveFeature(idx)}
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => setIsHovering(false)}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className={`p-3 rounded-lg ${activeFeature === idx ? 'bg-primary-100 text-primary-600' : 'bg-neutral-100 text-neutral-500'}`}>
-                      <feature.icon className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-neutral-900 mb-1">{feature.title}</h3>
-                      <p className="text-neutral-600">{feature.description}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <div className="lg:col-span-2 bg-white rounded-2xl shadow-xl overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeFeature}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="p-8 h-full"
-              >
-                <div className="flex flex-col h-full">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="p-2 rounded-lg bg-primary-100 text-primary-600">
-                      <features[activeFeature].icon className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-neutral-900">{features[activeFeature].title}</h3>
-                  </div>
-                  
-                  <div className="relative flex-1 rounded-xl overflow-hidden bg-neutral-50 mb-6">
-                    <Image
-                      src={features[activeFeature].image}
-                      alt={features[activeFeature].title}
-                      width={800}
-                      height={500}
-                      className="object-cover w-full h-full"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-lg font-semibold text-neutral-900 mb-3">Key Benefits:</h4>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {features[activeFeature].benefits.map((benefit, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-neutral-700">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Feature Categories */}
-        <div className="space-y-32">
-          {categories.map((category, idx) => (
-            <ScrollReveal key={category.title} delay={150}>
-              <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                idx % 2 === 1 ? 'lg:grid-flow-dense' : ''
-              }`}>
-                <div className={idx % 2 === 1 ? 'lg:col-start-2' : ''}>
-                  <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 mb-4 rounded-full bg-secondary-50 text-secondary-600">
-                    <category.icon className="w-4 h-4" />
-                    <span className="text-sm font-medium">{category.badge}</span>
-                  </div>
-                  <h2 className="text-3xl font-bold text-neutral-900 mb-4">{category.title}</h2>
-                  <p className="text-lg text-neutral-600 mb-6">{category.description}</p>
-                  
-                  <div className="space-y-4 mb-8">
-                    {category.points.map((point, i) => (
-                      <motion.div 
-                        key={i}
-                        className="flex items-start gap-3"
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                        viewport={{ once: true }}
-                      >
-                        <div className="p-1 rounded-full bg-primary-100 text-primary-600 mt-1">
-                          <CheckCircle className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-neutral-900">{point.title}</h4>
-                          <p className="text-neutral-600">{point.description}</p>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                  
-                  <Link
-                    href="/signup"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 rounded-lg text-white font-medium hover:bg-neutral-800 transition-colors"
-                  >
-                    Try It Free
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-                
-                <div className="relative">
-                  <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary-500/20 to-secondary-500/20 blur-xl" />
-                  <div className="relative rounded-xl overflow-hidden shadow-xl">
-                    <Image
-                      src={category.image}
-                      alt={category.title}
-                      width={600}
-                      height={400}
-                      className="w-full h-auto"
-                    />
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </div>
-
-      {/* Interactive Feature Comparison */}
-      <div className="py-24 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 mb-4 rounded-full bg-secondary-50 text-secondary-600">
-                <Target className="w-4 h-4" />
-                <span className="text-sm font-medium">Why We're Different</span>
-              </div>
-              <h2 className="text-4xl font-bold text-neutral-900 mb-4">
-                Designed <span className="text-primary-600">Differently</span>
-              </h2>
-              <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-                See how our features compare to traditional productivity tools that weren't designed for neurodivergent minds.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="overflow-x-auto pb-6">
-            <table className="w-full min-w-[800px] border-collapse">
-              <thead>
-                <tr>
-                  <th className="p-4 text-left text-neutral-600 font-medium">Feature</th>
-                  <th className="p-4 text-center bg-primary-50 rounded-tl-lg text-primary-700 font-semibold">
-                    Curiosity Manager
-                  </th>
-                  <th className="p-4 text-center bg-neutral-100 rounded-tr-lg text-neutral-700 font-medium">
-                    Traditional Tools
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonFeatures.map((feature, idx) => (
-                  <tr key={feature.name} className={idx % 2 === 0 ? 'bg-neutral-50/50' : ''}>
-                    <td className="p-4 text-neutral-900 font-medium border-t border-neutral-200">
-                      {feature.name}
-                    </td>
-                    <td className="p-4 text-center border-t border-neutral-200 bg-primary-50/50">
-                      <div className="flex items-center justify-center">
-                        <span className="text-primary-700">{feature.ours}</span>
-                        {feature.oursBadge && (
-                          <span className="ml-2 px-2 py-0.5 text-xs font-semibold text-white rounded-full bg-gradient-to-r from-primary-500 to-secondary-500">
-                            {feature.oursBadge}
-                          </span>
-                        )}
-                      </div>
-                    </td>
-                    <td className="p-4 text-center border-t border-neutral-200 bg-neutral-100/50 text-neutral-600">
-                      {feature.theirs}
-                    </td>
-                  </tr>
-                ))}
-                <tr>
-                  <td className="p-4 border-t border-neutral-200"></td>
-                  <td className="p-4 text-center border-t border-neutral-200 bg-primary-50 rounded-bl-lg">
-                    <Link
-                      href="/signup"
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 rounded-lg text-white font-medium hover:bg-primary-700 transition-colors w-full"
-                    >
-                      Try For Free
-                      <ArrowUpRight className="w-4 h-4" />
-                    </Link>
-                  </td>
-                  <td className="p-4 text-center border-t border-neutral-200 bg-neutral-100 rounded-br-lg"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary-600 to-secondary-600 shadow-xl">
-            <div className="absolute inset-0 bg-grid-white/10" />
-            <div className="relative px-6 py-24 sm:px-24 text-center">
-              <ScrollReveal>
-                <h2 className="text-3xl font-bold text-white mb-6">
-                  Ready to Experience the Difference?
-                </h2>
-                <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-                  Join thousands of neurodivergent minds who've found their flow with Curiosity Manager.
-                </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <Link
-                    href="/signup"
-                    className="px-8 py-4 bg-white rounded-xl text-neutral-900 font-semibold hover:bg-neutral-50 transition-colors shadow-lg w-full sm:w-auto"
-                  >
-                    Start Free Trial
-                  </Link>
-                  <Link
-                    href="/pricing"
-                    className="px-8 py-4 bg-white/10 rounded-xl text-white font-semibold hover:bg-white/20 transition-colors w-full sm:w-auto"
-                  >
-                    View Pricing
-                  </Link>
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Feature data
+// Feature highlights for the rotating feature section
 const features = [
   {
     title: "Adaptive Task System",
     description: "Tasks that adapt to your energy levels and focus state",
     icon: Zap,
-    image: "/features/adaptive-tasks.jpg",
-    benefits: [
-      "Matches tasks to your current energy level",
-      "Reduces overwhelm with smart prioritization",
-      "Adapts deadlines based on your work patterns",
-      "Visual progress tracking for dopamine boosts"
-    ]
+    color: "bg-amber-500"
   },
   {
-    title: "Mind Space",
-    description: "Visual thought organization that works like your brain does",
+    title: "Visual Mind Mapping",
+    description: "Organize your thoughts spatially the way your brain works",
     icon: Brain,
-    image: "/features/mind-space.jpg",
-    benefits: [
-      "Capture thoughts in any format (text, image, audio)",
-      "Connect ideas visually with flexible linking",
-      "Zoom in/out to manage detail overwhelm",
-      "AI-assisted organization of scattered thoughts"
-    ]
+    color: "bg-blue-500"
   },
   {
-    title: "Focus Timer",
-    description: "Customizable focus sessions with built-in dopamine rewards",
+    title: "Flexible Time Blocking",
+    description: "Time management that works with your natural rhythms",
     icon: Timer,
-    image: "/features/focus-timer.jpg",
-    benefits: [
-      "Adjustable time blocks for different attention spans",
-      "Visual and audio cues to maintain engagement",
-      "Integrated breaks with movement prompts",
-      "Streak tracking for motivation and consistency"
-    ]
+    color: "bg-green-500"
   },
   {
-    title: "Energy Mapping",
-    description: "Track and leverage your natural energy patterns",
-    icon: Target,
-    image: "/features/energy-mapping.jpg",
-    benefits: [
-      "Visualize your energy patterns over time",
-      "Schedule tasks during your optimal hours",
-      "Reduce guilt by working with your rhythms",
-      "Identify factors affecting your productivity"
-    ]
-  },
-  {
-    title: "Thought Catcher",
-    description: "Capture ideas instantly without losing focus",
+    title: "Dopamine-Driven Rewards",
+    description: "Motivation systems designed for the neurodivergent brain",
     icon: Sparkles,
-    image: "/features/thought-catcher.jpg",
-    benefits: [
-      "Quick-capture interface for fleeting thoughts",
-      "Auto-categorization of captured ideas",
-      "Distraction-free input methods",
-      "Seamless integration with your projects"
-    ]
-  },
+    color: "bg-purple-500"
+  }
 ];
 
 // Feature categories for detailed sections
@@ -547,4 +180,433 @@ const comparisonFeatures = [
     oursBadge: "ENGAGING",
     theirs: "Checkbox completion only"
   }
-]; 
+];
+
+export default function FeaturesPage() {
+  const [activeFeature, setActiveFeature] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Parallax effect for hero section
+  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+
+  // Auto-rotate features every 5 seconds if not hovering
+  useEffect(() => {
+    if (isHovering) return;
+    
+    const interval = setInterval(() => {
+      setActiveFeature((prev) => (prev + 1) % features.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [isHovering]);
+
+  return (
+    <div className="relative min-h-screen bg-[#FAFAFA]" ref={containerRef}>
+      {/* Hero Section with Parallax */}
+      <div className="relative h-[70vh] overflow-hidden flex items-center justify-center">
+        <motion.div 
+          className="absolute inset-0 z-0"
+          style={{ y, opacity }}
+        >
+          <div className="absolute inset-0 bg-gradient-conic from-primary-100/40 via-secondary-50/40 to-primary-50/40 opacity-40 blur-3xl" />
+          <div className="absolute left-1/4 top-1/4 w-64 h-64 rounded-full bg-gradient-to-r from-blue-200/30 to-primary-200/30 blur-xl" />
+          <div className="absolute right-1/4 bottom-1/4 w-72 h-72 rounded-full bg-gradient-to-r from-orange-200/30 to-yellow-200/30 blur-xl" />
+        </motion.div>
+        
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 mb-6">
+              Features Designed for <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600">Neurodivergent Minds</span>
+            </h1>
+            <p className="text-xl text-neutral-600 max-w-2xl mx-auto mb-12">
+              Our tools are built specifically for how ADHD and neurodivergent brains actually work, not how neurotypical productivity systems think they should work.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/signup"
+                className="px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg text-white font-medium hover:shadow-lg transition-all duration-200 hover:scale-105"
+              >
+                Start Free Trial
+              </Link>
+              <Link
+                href="/pricing"
+                className="px-6 py-3 bg-white border border-neutral-200 rounded-lg text-neutral-900 font-medium hover:bg-neutral-50 transition-all duration-200"
+              >
+                View Pricing
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+      
+      {/* Rotating Feature Highlights */}
+      <div className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-neutral-900 mb-4">
+                Key Features
+              </h2>
+              <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+                Designed specifically for neurodivergent brains, our features work with your natural thinking patterns, not against them.
+              </p>
+            </div>
+          </ScrollReveal>
+          
+          <div 
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+          >
+            <ScrollReveal>
+              <div className="relative">
+                <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary-500/20 to-secondary-500/20 blur-xl" />
+                <div className="relative bg-white rounded-xl shadow-xl overflow-hidden border border-neutral-200/50">
+                  <div className="p-8">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeFeature}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.5 }}
+                        className="min-h-[300px] flex flex-col items-center justify-center text-center"
+                      >
+                        <div className={`w-16 h-16 rounded-full ${features[activeFeature].color} flex items-center justify-center mb-6`}>
+                          {(() => {
+                            const Icon = features[activeFeature].icon;
+                            return <Icon className="w-8 h-8 text-white" />;
+                          })()}
+                        </div>
+                        <h3 className="text-2xl font-bold text-neutral-900 mb-4">
+                          {features[activeFeature].title}
+                        </h3>
+                        <p className="text-neutral-600">
+                          {features[activeFeature].description}
+                        </p>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                  
+                  <div className="flex border-t border-neutral-200">
+                    {features.map((feature, idx) => (
+                      <button
+                        key={idx}
+                        className={`flex-1 py-4 text-sm font-medium transition-colors ${
+                          activeFeature === idx 
+                            ? 'bg-neutral-100 text-neutral-900' 
+                            : 'text-neutral-500 hover:text-neutral-700'
+                        }`}
+                        onClick={() => setActiveFeature(idx)}
+                      >
+                        {idx + 1}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollReveal delay={100}>
+              <div className="space-y-6">
+                {features.map((feature, idx) => (
+                  <motion.div
+                    key={idx}
+                    className={`p-6 rounded-lg border transition-all cursor-pointer ${
+                      activeFeature === idx
+                        ? 'border-primary-500 bg-white shadow-md'
+                        : 'border-neutral-200 bg-white/50 hover:bg-white hover:shadow-sm'
+                    }`}
+                    onClick={() => setActiveFeature(idx)}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className={`w-10 h-10 rounded-full ${feature.color} flex items-center justify-center flex-shrink-0`}>
+                        {(() => {
+                          const Icon = feature.icon;
+                          return <Icon className="w-5 h-5 text-white" />;
+                        })()}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-neutral-900 mb-1">
+                          {feature.title}
+                        </h3>
+                        <p className="text-neutral-600 text-sm">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </div>
+      
+      {/* Detailed Feature Categories */}
+      <div className="py-24 bg-neutral-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-neutral-900 mb-4">
+                Designed for Your Brain
+              </h2>
+              <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+                Our features are specifically designed to work with neurodivergent thinking patterns, not against them.
+              </p>
+            </div>
+          </ScrollReveal>
+          
+          {categories.map((category, idx) => (
+            <ScrollReveal key={idx} delay={idx * 100}>
+              <div className={`mb-24 ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''} flex flex-col lg:flex-row gap-12 items-center`}>
+                <div className="lg:w-1/2">
+                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-neutral-200 text-neutral-800 mb-4">
+                    {category.badge}
+                  </div>
+                  <h3 className="text-2xl font-bold text-neutral-900 mb-4">
+                    {category.title}
+                  </h3>
+                  <p className="text-neutral-600 mb-8">
+                    {category.description}
+                  </p>
+                  
+                  <div className="space-y-6">
+                    {category.points.map((point, pointIdx) => (
+                      <motion.div
+                        key={pointIdx}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: pointIdx * 0.1 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                      >
+                        <div className="flex gap-4">
+                          <div className="flex-shrink-0 mt-1">
+                            <CheckCircle className="w-5 h-5 text-primary-500" />
+                          </div>
+                          <div>
+                            <h4 className="text-lg font-semibold text-neutral-900 mb-1">
+                              {point.title}
+                            </h4>
+                            <p className="text-neutral-600">{point.description}</p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  <Link
+                    href="/signup"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 rounded-lg text-white font-medium hover:bg-neutral-800 transition-colors mt-8"
+                  >
+                    Try It Free
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+
+                <div className="relative lg:w-1/2">
+                  <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary-500/20 to-secondary-500/20 blur-xl" />
+                  <div className="relative rounded-xl overflow-hidden shadow-xl">
+                    <Image
+                      src={category.image}
+                      alt={category.title}
+                      width={600}
+                      height={400}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+      
+      {/* Comparison Table */}
+      <div className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-neutral-900 mb-4">
+                How We Compare
+              </h2>
+              <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+                See how our neurodivergent-focused approach differs from traditional productivity tools.
+              </p>
+            </div>
+          </ScrollReveal>
+          
+          <div className="overflow-hidden rounded-xl border border-neutral-200 shadow-lg">
+            <div className="grid grid-cols-3 bg-neutral-900 text-white p-6">
+              <div className="col-span-1">
+                <h3 className="text-lg font-semibold">Feature</h3>
+              </div>
+              <div className="col-span-1 text-center">
+                <h3 className="text-lg font-semibold text-primary-400">Curiosity Manager</h3>
+              </div>
+              <div className="col-span-1 text-center">
+                <h3 className="text-lg font-semibold text-neutral-400">Traditional Tools</h3>
+              </div>
+            </div>
+            
+            {comparisonFeatures.map((feature, idx) => (
+              <ScrollReveal key={idx} delay={idx * 50}>
+                <div className={`grid grid-cols-3 p-6 ${idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}`}>
+                  <div className="col-span-1">
+                    <p className="font-medium text-neutral-900">{feature.name}</p>
+                  </div>
+                  <div className="col-span-1 text-center">
+                    <div className="inline-flex flex-col items-center">
+                      <p className="text-primary-600 font-medium">{feature.ours}</p>
+                      {feature.oursBadge && (
+                        <span className="mt-1 px-2 py-0.5 bg-primary-100 text-primary-800 text-xs font-medium rounded-full">
+                          {feature.oursBadge}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="col-span-1 text-center">
+                    <p className="text-neutral-500">{feature.theirs}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+          
+          <div className="mt-12 text-center">
+            <Link
+              href="/signup"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg text-white font-medium hover:shadow-lg transition-all duration-200 hover:scale-105"
+            >
+              Try Curiosity Manager Free
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </div>
+      
+      {/* FAQ Section */}
+      <div className="py-24 bg-neutral-50">
+        <div className="max-w-4xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-neutral-900 mb-4">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+                Have questions about our features? Find answers to common questions below.
+              </p>
+            </div>
+          </ScrollReveal>
+          
+          <div className="space-y-6">
+            {/* FAQ items would go here */}
+            <ScrollReveal>
+              <div className="bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden">
+                <details className="group">
+                  <summary className="flex items-center justify-between p-6 cursor-pointer">
+                    <h3 className="text-lg font-medium text-neutral-900">
+                      How is this different from other task managers?
+                    </h3>
+                    <span className="ml-6 flex-shrink-0 flex items-center justify-center">
+                      <Plus className="h-5 w-5 text-neutral-500 group-open:hidden" />
+                      <Minus className="h-5 w-5 text-neutral-500 hidden group-open:block" />
+                    </span>
+                  </summary>
+                  <div className="px-6 pb-6 pt-0">
+                    <p className="text-neutral-600">
+                      Unlike traditional task managers that force you into rigid systems, Curiosity Manager adapts to how your brain naturally works. We offer visual organization, energy-based scheduling, and dopamine-optimized reward systems specifically designed for neurodivergent thinking patterns.
+                    </p>
+                  </div>
+                </details>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollReveal delay={50}>
+              <div className="bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden">
+                <details className="group">
+                  <summary className="flex items-center justify-between p-6 cursor-pointer">
+                    <h3 className="text-lg font-medium text-neutral-900">
+                      Do I need to be diagnosed with ADHD to benefit from these features?
+                    </h3>
+                    <span className="ml-6 flex-shrink-0 flex items-center justify-center">
+                      <Plus className="h-5 w-5 text-neutral-500 group-open:hidden" />
+                      <Minus className="h-5 w-5 text-neutral-500 hidden group-open:block" />
+                    </span>
+                  </summary>
+                  <div className="px-6 pb-6 pt-0">
+                    <p className="text-neutral-600">
+                      Not at all! While our tools are designed with neurodivergent minds in mind, many people find our flexible, visual, and adaptive approach more intuitive than traditional productivity systems. If you&apos;ve ever felt that conventional tools don&apos;t quite work for you, Curiosity Manager might be a better fit.
+                    </p>
+                  </div>
+                </details>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollReveal delay={100}>
+              <div className="bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden">
+                <details className="group">
+                  <summary className="flex items-center justify-between p-6 cursor-pointer">
+                    <h3 className="text-lg font-medium text-neutral-900">
+                      Can I customize the features to my specific needs?
+                    </h3>
+                    <span className="ml-6 flex-shrink-0 flex items-center justify-center">
+                      <Plus className="h-5 w-5 text-neutral-500 group-open:hidden" />
+                      <Minus className="h-5 w-5 text-neutral-500 hidden group-open:block" />
+                    </span>
+                  </summary>
+                  <div className="px-6 pb-6 pt-0">
+                    <p className="text-neutral-600">
+                      Absolutely! Customization is at the core of our philosophy. You can adjust visual elements, notification styles, reward systems, and energy tracking to match your unique cognitive style. Our Pro and Team plans offer even more advanced customization options.
+                    </p>
+                  </div>
+                </details>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </div>
+      
+      {/* CTA Section */}
+      <div className="py-24 bg-gradient-to-r from-primary-600 to-secondary-600 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <ScrollReveal>
+            <h2 className="text-3xl font-bold mb-6">
+              Ready to try a productivity system that works with your brain?
+            </h2>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Start your free 14-day trial today. No credit card required.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/signup"
+                className="px-8 py-4 bg-white rounded-lg text-primary-600 font-medium hover:shadow-lg transition-all duration-200 hover:scale-105"
+              >
+                Start Free Trial
+              </Link>
+              <Link
+                href="/contact"
+                className="px-8 py-4 bg-transparent border border-white rounded-lg text-white font-medium hover:bg-white/10 transition-all duration-200"
+              >
+                Contact Sales
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </div>
+    </div>
+  );
+} 
