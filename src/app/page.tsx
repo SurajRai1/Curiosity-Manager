@@ -1,10 +1,33 @@
 import Image from "next/image";
 import Link from 'next/link';
 import { ArrowRight, Brain, Sparkles, Timer, Zap, Target, Heart, Star, Lightbulb, Rocket, CheckCircle, ArrowUpRight, Plus, Minus, Users } from 'lucide-react';
+import SmoothScroll from '@/components/homepage/SmoothScroll';
+import ScrollToTopButton from '@/components/homepage/ScrollToTopButton';
+import SectionNav from '@/components/homepage/SectionNav';
+import ScrollReveal from '@/components/homepage/ScrollReveal';
+
+// Define sections for navigation
+const sections = [
+  { id: 'hero', label: 'Home' },
+  { id: 'features', label: 'Features' },
+  { id: 'benefits', label: 'Benefits' },
+  { id: 'testimonials', label: 'Testimonials' },
+  { id: 'pricing', label: 'Pricing' },
+  { id: 'faq', label: 'FAQ' },
+];
 
 export default function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#FAFAFA] selection:bg-primary-200 selection:text-primary-900 w-full">
+      {/* Add smooth scrolling behavior */}
+      <SmoothScroll />
+      
+      {/* Add section navigation */}
+      <SectionNav sections={sections} />
+      
+      {/* Add scroll to top button */}
+      <ScrollToTopButton />
+      
       {/* Decorative Elements - Optimized for performance */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         {/* Reduced number of decorative elements and optimized animations */}
@@ -28,124 +51,133 @@ export default function Home() {
       {/* Main Content */}
       <div className="relative w-full">
         {/* Hero Section - Adding content-visibility for better performance */}
-        <div className="px-6 pt-32 pb-20 mx-auto w-full sm:pt-40 lg:px-8 content-visibility-auto contain-layout">
+        <section id="hero" className="px-6 pt-32 pb-20 mx-auto w-full sm:pt-40 lg:px-8 content-visibility-auto contain-layout">
           <div className="relative z-10 w-full max-w-[2000px] mx-auto">
             {/* Enhanced Badge */}
-            <div className="flex justify-center mb-8 animate-fade-in-up">
-              <div className="inline-flex items-center px-3 py-1 space-x-2 bg-white rounded-full shadow-md">
-                <span className="px-2 py-0.5 text-xs font-semibold text-white rounded-full bg-gradient-to-r from-primary-500 to-secondary-500">
-                  NEW
-                </span>
-                <span className="text-sm font-medium text-neutral-600">
-                  Designed for ADHD & Neurodivergent Minds
-                </span>
-                <Sparkles className="w-4 h-4 text-secondary-500 animate-pulse" />
+            <ScrollReveal>
+              <div className="flex justify-center mb-8">
+                <div className="inline-flex items-center px-3 py-1 space-x-2 bg-white rounded-full shadow-md">
+                  <span className="px-2 py-0.5 text-xs font-semibold text-white rounded-full bg-gradient-to-r from-primary-500 to-secondary-500">
+                    NEW
+                  </span>
+                  <span className="text-sm font-medium text-neutral-600">
+                    Designed for ADHD & Neurodivergent Minds
+                  </span>
+                  <Sparkles className="w-4 h-4 text-secondary-500 animate-pulse" />
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Main Heading */}
-            <div className="text-center animate-fade-in-up [--animate-delay:200ms]">
-              <h1 className="text-5xl font-bold tracking-tight text-neutral-900 sm:text-7xl">
-                <span className="inline-block mb-2 text-neutral-600">Transform Chaos into</span>
-                <br />
-                <span className="inline-block bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-600 bg-clip-text text-transparent pb-4">
-                  Structured Progress
-                </span>
-              </h1>
-              <p className="mt-6 text-xl leading-8 text-neutral-600 max-w-2xl mx-auto">
-                Curiosity Manager helps you harness your ADHD superpowers. Turn scattered thoughts into actionable plans, without fighting against your natural workflow.
-              </p>
-            </div>
+            <ScrollReveal delay={200}>
+              <div className="text-center">
+                <h1 className="text-5xl font-bold tracking-tight text-neutral-900 sm:text-7xl">
+                  <span className="inline-block mb-2 text-neutral-600">Transform Chaos into</span>
+                  <br />
+                  <span className="inline-block bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-600 bg-clip-text text-transparent pb-4">
+                    Structured Progress
+                  </span>
+                </h1>
+                <p className="mt-6 text-xl leading-8 text-neutral-600 max-w-2xl mx-auto">
+                  Curiosity Manager helps you harness your ADHD superpowers. Turn scattered thoughts into actionable plans, without fighting against your natural workflow.
+                </p>
+              </div>
+            </ScrollReveal>
 
             {/* CTA Section */}
-            <div className="mt-10 flex items-center justify-center gap-x-6 animate-fade-in-up [--animate-delay:400ms]">
-              <Link
-                href="/signup"
-                className="group relative inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg"
-              >
-                Start Free Trial
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-600 to-secondary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
-              </Link>
-              <div className="relative group">
-                <Link 
-                  href="#demo" 
-                  className="inline-flex items-center gap-2 px-6 py-4 text-neutral-700 font-semibold transition-colors duration-300 group-hover:text-primary-600"
+            <ScrollReveal delay={400}>
+              <div className="mt-10 flex items-center justify-center gap-x-6">
+                <Link
+                  href="/signup"
+                  className="group relative inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg"
                 >
-                  Watch Demo
-                  <div className="w-6 h-6 rounded-full bg-neutral-100 flex items-center justify-center group-hover:bg-primary-100 transition-colors duration-300">
-                    <ArrowRight className="w-3 h-3" />
-                  </div>
+                  Start Free Trial
+                  <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-600 to-secondary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                 </Link>
+                <div className="relative group">
+                  <Link 
+                    href="#demo" 
+                    className="inline-flex items-center gap-2 px-6 py-4 text-neutral-700 font-semibold transition-colors duration-300 group-hover:text-primary-600"
+                  >
+                    Watch Demo
+                    <div className="w-6 h-6 rounded-full bg-neutral-100 flex items-center justify-center group-hover:bg-primary-100 transition-colors duration-300">
+                      <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </Link>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Stats Section */}
-            <div className="mt-16 pt-8 border-t border-neutral-200 animate-fade-in-up [--animate-delay:600ms]">
-              <dl className="grid grid-cols-1 gap-y-8 gap-x-8 sm:grid-cols-3 text-center">
-                {stats.map((stat) => (
-                  <div key={stat.name} className="mx-auto">
-                    <dt className="text-base leading-7 text-neutral-600">{stat.name}</dt>
-                    <dd className="mt-1 text-3xl font-semibold tracking-tight text-neutral-900">{stat.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+            <ScrollReveal delay={600}>
+              <div className="mt-16 pt-8 border-t border-neutral-200">
+                <dl className="grid grid-cols-1 gap-y-8 gap-x-8 sm:grid-cols-3 text-center">
+                  {stats.map((stat) => (
+                    <div key={stat.name} className="mx-auto">
+                      <dt className="text-base leading-7 text-neutral-600">{stat.name}</dt>
+                      <dd className="mt-1 text-3xl font-semibold tracking-tight text-neutral-900">{stat.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </ScrollReveal>
           </div>
-        </div>
+        </section>
 
         {/* Features Grid - Adding containment */}
-        <div className="relative py-24 sm:py-32 bg-white w-full contain-layout">
+        <section id="features" className="relative py-24 sm:py-32 bg-white w-full contain-layout">
           <div className="mx-auto w-full px-6 lg:px-8 max-w-[2000px]">
-            <div className="mx-auto max-w-2xl text-center">
-              <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 mb-8 rounded-full bg-primary-50 text-primary-600">
-                <Lightbulb className="w-4 h-4" />
-                <span className="text-sm font-medium">Smart Features for Your Mind</span>
+            <ScrollReveal>
+              <div className="mx-auto max-w-2xl text-center">
+                <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 mb-8 rounded-full bg-primary-50 text-primary-600">
+                  <Lightbulb className="w-4 h-4" />
+                  <span className="text-sm font-medium">Smart Features for Your Mind</span>
+                </div>
+                <h2 className="text-4xl font-bold tracking-tight text-neutral-900">
+                  Tools That Understand
+                  <br />
+                  <span className="text-primary-600">How You Think</span>
+                </h2>
               </div>
-              <h2 className="text-4xl font-bold tracking-tight text-neutral-900">
-                Tools That Understand
-                <br />
-                <span className="text-primary-600">How You Think</span>
-              </h2>
-            </div>
+            </ScrollReveal>
 
             <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 gap-8 sm:mt-20 lg:max-w-none lg:grid-cols-3">
               {features.map((feature, idx) => (
-                <div
-                  key={feature.name}
-                  className="relative group"
-                >
-                  <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary-500 to-secondary-500 opacity-0 blur-xl transition duration-300 group-hover:opacity-10" />
-                  <div className="relative overflow-hidden rounded-2xl bg-white p-8 shadow-md transition-all duration-300 hover:shadow-xl">
-                    <div className="flex items-center gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500">
-                        <feature.icon className="h-6 w-6 text-white" />
+                <ScrollReveal key={feature.name} delay={idx * 100}>
+                  <div className="relative group">
+                    <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary-500 to-secondary-500 opacity-0 blur-xl transition duration-300 group-hover:opacity-10" />
+                    <div className="relative overflow-hidden rounded-2xl bg-white p-8 shadow-md transition-all duration-300 hover:shadow-xl">
+                      <div className="flex items-center gap-4">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500">
+                          <feature.icon className="h-6 w-6 text-white" />
+                        </div>
+                        <h3 className="text-xl font-semibold text-neutral-900">{feature.name}</h3>
                       </div>
-                      <h3 className="text-xl font-semibold text-neutral-900">{feature.name}</h3>
-                    </div>
-                    <p className="mt-4 text-neutral-600 leading-relaxed">
-                      {feature.description}
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {feature.tags.map((tag, i) => (
-                        <span
-                          key={i}
-                          className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700"
-                        >
-                          <CheckCircle className="w-3 h-3" />
-                          {tag}
-                        </span>
-                      ))}
+                      <p className="mt-4 text-neutral-600 leading-relaxed">
+                        {feature.description}
+                      </p>
+                      <div className="mt-6 flex flex-wrap gap-2">
+                        {feature.tags.map((tag, i) => (
+                          <span
+                            key={i}
+                            className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700"
+                          >
+                            <CheckCircle className="w-3 h-3" />
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Benefits Section - Adding containment */}
-        <div className="relative py-24 sm:py-32 w-full contain-layout">
+        <section id="benefits" className="relative py-24 sm:py-32 w-full contain-layout">
           <div className="mx-auto w-full px-6 lg:px-8 max-w-[2000px]">
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 px-6 py-20 shadow-2xl sm:px-24 xl:py-32">
               <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(to_bottom,transparent,50%,white)]" />
@@ -181,10 +213,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Testimonials Section - Adding containment and optimizing animations */}
-        <div className="relative py-24 sm:py-32 w-full bg-gradient-to-b from-white to-neutral-50 contain-layout">
+        <section id="testimonials" className="relative py-24 sm:py-32 bg-gradient-to-b from-white to-neutral-50 contain-layout">
           <div className="mx-auto w-full px-6 lg:px-8 max-w-[2000px]">
             <div className="mx-auto max-w-2xl text-center mb-20">
               <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 mb-8 rounded-full bg-secondary-50 text-secondary-600 hover:bg-secondary-100 transition-colors duration-300 cursor-default group">
@@ -232,10 +264,10 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Pricing Section - Adding containment and optimizing transforms */}
-        <div className="relative py-24 sm:py-32 w-full overflow-hidden contain-layout">
+        <section id="pricing" className="relative py-24 sm:py-32 w-full overflow-hidden contain-layout">
           <div className="absolute inset-0 bg-gradient-to-b from-neutral-50/50 to-white/50 backdrop-blur-3xl" />
           <div className="relative mx-auto w-full px-6 lg:px-8 max-w-[2000px]">
             <div className="mx-auto max-w-2xl text-center mb-20">
@@ -298,10 +330,10 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* FAQ Section - Adding containment */}
-        <div className="relative py-24 sm:py-32 w-full bg-white contain-layout">
+        <section id="faq" className="relative py-24 sm:py-32 bg-white contain-layout">
           <div className="mx-auto w-full px-6 lg:px-8 max-w-[2000px]">
             <div className="mx-auto max-w-2xl text-center mb-20">
               <h2 className="text-4xl font-bold tracking-tight text-neutral-900 mb-6">
@@ -335,10 +367,10 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Final CTA Section - Optimizing transform */}
-        <div className="relative py-24 sm:py-32 w-full overflow-hidden contain-layout">
+        <section id="cta" className="relative py-24 sm:py-32 w-full overflow-hidden contain-layout">
           <div className="mx-auto w-full px-6 lg:px-8 max-w-[2000px]">
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary-600 to-secondary-600 transform-gpu transition-transform duration-300 hover:scale-[1.02]">
               <div className="absolute inset-0 bg-grid-white/10" />
@@ -370,7 +402,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Footer */}
         <footer className="relative w-full bg-neutral-900 text-neutral-200 pt-16 pb-8 overflow-hidden">
