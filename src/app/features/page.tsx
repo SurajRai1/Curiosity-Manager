@@ -442,7 +442,7 @@ const categories = [
       },
       {
         title: "Task Matching",
-        description: "Match tasks to your current energy level - creative work when you're inspired, routine tasks when you're not."
+        description: "Match tasks to your current energy level - creative work when you&apos;re inspired, routine tasks when you&apos;re not."
       },
       {
         title: "Adaptive Scheduling",
@@ -500,7 +500,7 @@ const categories = [
       },
       {
         title: "Shame-Free Resets",
-        description: "Easy ways to reset and restart when you've fallen behind, without judgment or penalty."
+        description: "Easy ways to reset and restart when you&apos;ve fallen behind, without judgment or penalty."
       }
     ]
   }
