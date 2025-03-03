@@ -59,7 +59,7 @@ export default function AboutPage() {
             </h1>
             
             <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8 drop-shadow-sm">
-              We're building tools that work with your brain, not against it.
+              We&apos;re building tools that work with your brain, not against it.
               Founded by neurodivergent individuals for neurodivergent individuals.
             </p>
           </motion.div>
@@ -79,10 +79,10 @@ export default function AboutPage() {
                 </h2>
                 <div className="space-y-4 text-neutral-700">
                   <p>
-                    Curiosity Manager was born from frustration. As individuals with ADHD, we struggled with traditional productivity tools that seemed designed for neurotypical brains. They were either too rigid, too complex, or simply didn't account for how our minds actually work.
+                    Curiosity Manager was born from frustration. As individuals with ADHD, we struggled with traditional productivity tools that seemed designed for neurotypical brains. They were either too rigid, too complex, or simply didn&apos;t account for how our minds actually work.
                   </p>
                   <p>
-                    In 2022, our founder, who had spent years trying to "fix" their productivity challenges, had a realization: the problem wasn't their brain—it was the tools. What if, instead of forcing neurodivergent people to adapt to neurotypical systems, we created tools specifically designed for how our minds naturally function?
+                    In 2022, our founder, who had spent years trying to &quot;fix&quot; their productivity challenges, had a realization: the problem wasn&apos;t their brain - it was the tools. What if, instead of forcing neurodivergent people to adapt to neurotypical systems, we created tools specifically designed for how our minds naturally function?
                   </p>
                   <p>
                     That question led to months of research, interviews with hundreds of neurodivergent individuals, and countless prototypes. The result is Curiosity Manager—a productivity platform that embraces neurodivergent traits as strengths rather than weaknesses.
@@ -102,7 +102,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/70 to-transparent flex items-end">
                   <div className="p-6">
                     <p className="text-white text-lg font-medium">
-                      "We're not just building software; we're creating a new paradigm for productivity."
+                      &quot;We&apos;re not just building software; we&apos;re creating a new paradigm for productivity.&quot;
                     </p>
                     <p className="text-white/80 mt-2">
                       — Alex Chen, Founder
@@ -124,7 +124,7 @@ export default function AboutPage() {
                 Our Mission
               </h2>
               <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-                We're on a mission to transform how neurodivergent individuals interact with productivity tools.
+                We&apos;re on a mission to transform how neurodivergent individuals interact with productivity tools.
               </p>
             </div>
           </ScrollReveal>
@@ -158,7 +158,7 @@ export default function AboutPage() {
                 Meet Our Team
               </h2>
               <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-                We're a diverse group of neurodivergent thinkers, designers, and engineers passionate about creating tools that work for all types of minds.
+                We&apos;re a diverse group of neurodivergent thinkers, designers, and engineers passionate about creating tools that work for all types of minds.
               </p>
             </div>
           </ScrollReveal>
@@ -238,7 +238,7 @@ export default function AboutPage() {
                   Join Our Mission
                 </h2>
                 <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-                  We're always looking for passionate individuals to join our team. Check out our open positions or reach out to learn more.
+                  We&apos;re always looking for passionate individuals to join our team. Check out our open positions or reach out to learn more.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <Link
@@ -281,7 +281,7 @@ const missionPoints = [
   },
   {
     title: 'Build Community',
-    description: 'We're fostering a supportive community where neurodivergent individuals can connect, share strategies, and celebrate their unique perspectives.',
+    description: 'We\'re fostering a supportive community where neurodivergent individuals can connect, share strategies, and celebrate their unique perspectives.',
     icon: Users,
     iconBg: 'bg-blue-100',
     iconColor: 'text-blue-600'
@@ -324,7 +324,7 @@ const teamMembers = [
     name: 'Morgan Lee',
     role: 'Community Manager',
     image: '/about/team-6.jpg',
-    funFact: 'Can remember every community member's name but often forgets what day it is.'
+    funFact: 'Can remember every community member\'s name but often forgets what day it is.'
   },
   {
     name: 'Casey Wilson',
@@ -352,11 +352,11 @@ const values = [
   },
   {
     title: 'Transparency and Honesty',
-    description: 'We're committed to clear communication and ethical practices in everything we do, from how we build our products to how we interact with our community.'
+    description: 'We\'re committed to clear communication and ethical practices in everything we do, from how we build our products to how we interact with our community.'
   },
   {
     title: 'Continuous Learning',
-    description: 'We're constantly researching, testing, and refining our understanding of neurodivergent needs to create better, more intuitive tools.'
+    description: 'We\'re constantly researching, testing, and refining our understanding of neurodivergent needs to create better, more intuitive tools.'
   },
   {
     title: 'Accessibility First',

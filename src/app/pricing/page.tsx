@@ -152,7 +152,7 @@ export default function PricingPage() {
                     </div>
                     
                     <div className="p-8 bg-neutral-50 border-t border-neutral-200">
-                      <h4 className="font-semibold text-neutral-900 mb-4">What's included:</h4>
+                      <h4 className="font-semibold text-neutral-900 mb-4">What&apos;s included:</h4>
                       <ul className="space-y-3">
                         {plan.features.map((feature, idx) => (
                           <li key={idx} className="flex items-start gap-3">
@@ -514,7 +514,7 @@ const faqs = [
   },
   {
     question: 'Is there a free trial?',
-    answer: 'Yes, all paid plans come with a 14-day free trial. No credit card is required to start your trial. You'll only be charged if you decide to continue using the service after the trial period ends.'
+    answer: 'Yes, all paid plans come with a 14-day free trial. No credit card is required to start your trial. You\'ll only be charged if you decide to continue using the service after the trial period ends.'
   },
   {
     question: 'What payment methods do you accept?',
@@ -522,7 +522,7 @@ const faqs = [
   },
   {
     question: 'Can I cancel my subscription?',
-    answer: 'Yes, you can cancel your subscription at any time. If you cancel, you'll still have access to your paid features until the end of your current billing cycle. We don't offer refunds for partial billing periods.'
+    answer: 'Yes, you can cancel your subscription at any time. If you cancel, you\'ll still have access to your paid features until the end of your current billing cycle. We don\'t offer refunds for partial billing periods.'
   },
   {
     question: 'Do you offer discounts for students or non-profits?',
@@ -530,6 +530,6 @@ const faqs = [
   },
   {
     question: 'What happens to my data if I downgrade?',
-    answer: 'If you downgrade to a plan that has lower limits (e.g., fewer projects), you'll need to reduce your usage to meet the new plan's limits. We'll guide you through this process and give you time to make adjustments before the downgrade takes effect.'
+    answer: 'If you downgrade to a plan that has lower limits (e.g., fewer projects), you\'ll need to reduce your usage to meet the new plan\'s limits. We\'ll guide you through this process and give you time to make adjustments before the downgrade takes effect.'
   }
 ]; 

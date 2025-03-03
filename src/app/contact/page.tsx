@@ -86,7 +86,7 @@ export default function ContactPage() {
                 CONTACT
               </span>
               <span className="text-sm font-medium text-neutral-600">
-                We'd love to hear from you
+                We&apos;d love to hear from you
               </span>
             </div>
             
@@ -98,7 +98,7 @@ export default function ContactPage() {
             </h1>
             
             <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-              Have questions, feedback, or just want to say hello? We're here to help!
+              Have questions, feedback, or just want to say hello? We&apos;re here to help!
             </p>
           </motion.div>
         </div>
@@ -452,7 +452,7 @@ export default function ContactPage() {
                 Visit Our Office
               </h2>
               <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-                We're located in the heart of San Francisco's tech district.
+                We&apos;re located in the heart of San Francisco&apos;s tech district.
               </p>
             </div>
           </ScrollReveal>
@@ -483,7 +483,7 @@ export default function ContactPage() {
 // FAQ data
 const contactFaqs = [
   {
-    question: 'What's the best way to contact support?',
+    question: 'What\'s the best way to contact support?',
     answer: 'For the fastest response, we recommend using the contact form on this page or emailing support@curiositymanager.com. For urgent issues, you can also call our support line at +1 (555) 123-4567 during business hours (Monday-Friday, 9am-5pm PT).'
   },
   {
@@ -492,7 +492,7 @@ const contactFaqs = [
   },
   {
     question: 'Can I schedule a demo of your product?',
-    answer: 'Absolutely! You can request a demo through the contact form (select "Partnership Opportunity" as the subject) or by emailing hello@curiositymanager.com. Please include your preferred date and time, and we'll do our best to accommodate your schedule.'
+    answer: 'Absolutely! You can request a demo through the contact form (select &quot;Partnership Opportunity&quot; as the subject) or by emailing hello@curiositymanager.com. Please include your preferred date and time, and we\'ll do our best to accommodate your schedule.'
   },
   {
     question: 'Do you offer phone support?',
@@ -500,6 +500,6 @@ const contactFaqs = [
   },
   {
     question: 'How can I provide feedback about the product?',
-    answer: 'We love hearing from our users! You can provide feedback through the contact form (select "Product Feedback" as the subject), by emailing feedback@curiositymanager.com, or through the feedback option in the app itself.'
+    answer: 'We love hearing from our users! You can provide feedback through the contact form (select &quot;Product Feedback&quot; as the subject), by emailing feedback@curiositymanager.com, or through the feedback option in the app itself.'
   }
 ]; 
