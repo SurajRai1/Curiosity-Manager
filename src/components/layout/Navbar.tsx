@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 const navigation = [
   { name: 'Features', href: '/features' },
@@ -14,6 +15,25 @@ const navigation = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [shouldRender, setShouldRender] = useState(true);
+  const pathname = usePathname();
+  
+  // Check if we're on a dashboard page
+  useEffect(() => {
+    const isDashboardPath = pathname?.startsWith('/dashboard');
+    setShouldRender(!isDashboardPath);
+    
+    // Also check for the dashboard cookie as a fallback
+    const isDashboardCookie = document.cookie.includes('is-dashboard-path=true');
+    if (isDashboardCookie) {
+      setShouldRender(false);
+    }
+  }, [pathname]);
+  
+  // Don't render anything if we're on a dashboard page
+  if (!shouldRender) {
+    return null;
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">

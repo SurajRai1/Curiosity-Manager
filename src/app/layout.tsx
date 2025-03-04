@@ -21,7 +21,12 @@ export default async function RootLayout({
   // Get the current pathname from headers
   const headersList = headers();
   const pathname = headersList.get('x-pathname') || '';
-  const isDashboardPath = pathname.startsWith('/dashboard');
+  
+  // More robust path detection - check for dashboard path segments
+  const isDashboardPath = 
+    pathname.startsWith('/dashboard') || 
+    pathname.includes('/dashboard/') || 
+    pathname === '/dashboard';
 
   return (
     <html lang="en" className={inter.className}>
@@ -33,6 +38,20 @@ export default async function RootLayout({
             {children}
           </main>
         </ToastProvider>
+        
+        {/* Add client-side script to ensure dashboard pages don't show the navbar */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              // Check if we're on a dashboard page
+              if (window.location.pathname.startsWith('/dashboard')) {
+                // Find and hide any navbar that might have been rendered
+                const navbar = document.querySelector('header.fixed');
+                if (navbar) navbar.style.display = 'none';
+              }
+            })();
+          `
+        }} />
       </body>
     </html>
   );
