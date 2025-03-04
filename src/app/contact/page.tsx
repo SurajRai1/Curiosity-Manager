@@ -235,10 +235,10 @@ export default function ContactPage() {
                           onFocus={() => handleInputFocus('name')}
                           onBlur={handleInputBlur}
                           className={`w-full p-3 rounded-lg border ${
-                            activeInput === 'name' 
-                              ? 'border-primary-500 ring-1 ring-primary-500' 
+                            activeInput === 'name'
+                              ? 'border-primary-500 ring-1 ring-primary-500'
                               : 'border-neutral-300'
-                          } focus:outline-none`}
+                          } focus:outline-none text-neutral-900`}
                           required
                         />
                       </div>
@@ -263,10 +263,10 @@ export default function ContactPage() {
                           onFocus={() => handleInputFocus('email')}
                           onBlur={handleInputBlur}
                           className={`w-full p-3 rounded-lg border ${
-                            activeInput === 'email' 
-                              ? 'border-primary-500 ring-1 ring-primary-500' 
+                            activeInput === 'email'
+                              ? 'border-primary-500 ring-1 ring-primary-500'
                               : 'border-neutral-300'
-                          } focus:outline-none`}
+                          } focus:outline-none text-neutral-900`}
                           required
                         />
                       </div>
@@ -291,10 +291,10 @@ export default function ContactPage() {
                         onFocus={() => handleInputFocus('subject')}
                         onBlur={handleInputBlur}
                         className={`w-full p-3 rounded-lg border ${
-                          activeInput === 'subject' 
-                            ? 'border-primary-500 ring-1 ring-primary-500' 
+                          activeInput === 'subject'
+                            ? 'border-primary-500 ring-1 ring-primary-500'
                             : 'border-neutral-300'
-                        } focus:outline-none appearance-none bg-white`}
+                        } focus:outline-none appearance-none bg-white text-neutral-900`}
                         required
                       >
                         <option value="" disabled>Select a subject</option>
@@ -325,10 +325,10 @@ export default function ContactPage() {
                         onFocus={() => handleInputFocus('message')}
                         onBlur={handleInputBlur}
                         className={`w-full p-3 rounded-lg border ${
-                          activeInput === 'message' 
-                            ? 'border-primary-500 ring-1 ring-primary-500' 
+                          activeInput === 'message'
+                            ? 'border-primary-500 ring-1 ring-primary-500'
                             : 'border-neutral-300'
-                        } focus:outline-none min-h-[150px]`}
+                        } focus:outline-none min-h-[150px] text-neutral-900`}
                         required
                       />
                     </div>

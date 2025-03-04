@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '../../../lib/supabase';
 
 export default function AuthCallbackPage() {
   const router = useRouter();
@@ -35,6 +35,8 @@ export default function AuthCallbackPage() {
                 {
                   id: session.user.id,
                   email: session.user.email,
+                  first_name: session.user.user_metadata?.first_name || '',
+                  last_name: session.user.user_metadata?.last_name || '',
                   // Add any other default profile fields
                 },
               ]);
