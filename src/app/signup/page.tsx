@@ -72,28 +72,45 @@ export default function SignUpPage() {
         },
       });
 
-      if (signUpError) throw signUpError;
+      if (signUpError) {
+        // Handle rate limiting error specifically
+        if (signUpError.message.includes('429') || signUpError.status === 429) {
+          throw new Error('Too many signup attempts. Please try again later.');
+        }
+        throw signUpError;
+      }
 
       if (signUpData.user) {
-        // Update profile in custom table if needed
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert([
-            {
-              id: signUpData.user.id,
-              first_name: formData.firstName,
-              last_name: formData.lastName,
-              email: formData.email,
-            },
-          ]);
+        try {
+          // Update profile in custom table if needed
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .insert([
+              {
+                id: signUpData.user.id,
+                first_name: formData.firstName,
+                last_name: formData.lastName,
+                email: formData.email,
+              },
+            ])
+            .select();
 
-        if (profileError) throw profileError;
+          if (profileError) {
+            console.error('Profile creation error:', profileError);
+            // Continue with onboarding even if profile creation fails
+            // The auth callback will try to create the profile again
+          }
+        } catch (profileErr) {
+          console.error('Profile creation exception:', profileErr);
+          // Continue with onboarding even if profile creation fails
+        }
 
         // Redirect to onboarding instead of dashboard
         router.push('/onboarding');
         router.refresh();
       }
     } catch (error) {
+      console.error('Signup error:', error);
       setError(error instanceof Error ? error.message : 'An error occurred during signup');
     } finally {
       setIsLoading(false);

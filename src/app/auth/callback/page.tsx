@@ -20,30 +20,44 @@ export default function AuthCallbackPage() {
         }
 
         if (session) {
-          // Check if this is a new user by looking for their profile
-          const { data: profile, error: profileError } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
-
-          if (profileError || !profile) {
-            // If no profile exists, this is a new user - create profile and redirect to onboarding
-            await supabase
+          try {
+            // Check if this is a new user by looking for their profile
+            const { data: profile, error: profileError } = await supabase
               .from('profiles')
-              .insert([
-                {
-                  id: session.user.id,
-                  email: session.user.email,
-                  first_name: session.user.user_metadata?.first_name || '',
-                  last_name: session.user.user_metadata?.last_name || '',
-                  // Add any other default profile fields
-                },
-              ]);
+              .select('id, first_name, last_name, email')
+              .eq('id', session.user.id)
+              .single();
+
+            if (profileError || !profile) {
+              console.log('Creating new profile for user:', session.user.id);
+              // If no profile exists, this is a new user - create profile and redirect to onboarding
+              const { error: insertError } = await supabase
+                .from('profiles')
+                .insert([
+                  {
+                    id: session.user.id,
+                    email: session.user.email,
+                    first_name: session.user.user_metadata?.first_name || '',
+                    last_name: session.user.user_metadata?.last_name || '',
+                    created_at: new Date().toISOString(),
+                  },
+                ])
+                .select();
+
+              if (insertError) {
+                console.error('Error creating profile:', insertError);
+                // Continue to onboarding even if profile creation fails
+              }
+              
+              router.push('/onboarding');
+            } else {
+              // Existing user - redirect to dashboard
+              router.push('/dashboard');
+            }
+          } catch (profileCheckError) {
+            console.error('Error checking profile:', profileCheckError);
+            // If we can't check the profile, assume new user and go to onboarding
             router.push('/onboarding');
-          } else {
-            // Existing user - redirect to dashboard
-            router.push('/dashboard');
           }
         } else {
           router.push('/login');

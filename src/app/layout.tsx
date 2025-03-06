@@ -18,8 +18,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Get the current pathname from headers
-  const headersList = headers();
+  // Get the current pathname from headers - properly awaited
+  const headersList = await headers();
   const pathname = headersList.get('x-pathname') || '';
   
   // More robust path detection - check for dashboard path segments
